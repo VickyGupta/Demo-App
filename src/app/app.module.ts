@@ -15,8 +15,7 @@ import { MatButtonModule,
          MatSidenavModule,
          MatTableModule,
          MatCardModule,
-         MatChipsModule,
-         MatDialog
+         MatChipsModule
       } from '@angular/material';
 
 
@@ -59,7 +58,6 @@ import { FormDetailComponent } from './home/form-detail/form-detail.component';
     MatTableModule,
     MatCardModule,
     MatChipsModule,
-    MatDialog,
     AppRoutingModule
   ],
   providers: [HomeDirective, HomeService],
