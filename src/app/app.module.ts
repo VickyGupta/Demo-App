@@ -15,7 +15,9 @@ import { MatButtonModule,
          MatSidenavModule,
          MatTableModule,
          MatCardModule,
-         MatChipsModule
+         MatChipsModule,
+         MatDialogModule,
+         MatExpansionModule
       } from '@angular/material';
 
 
@@ -28,6 +30,7 @@ import { TokenComponent } from './home/token/token.component';
 import { UserComponent } from './home/user/user.component';
 import { FormComponent } from './home/form/form.component';
 import { FormDetailComponent } from './home/form-detail/form-detail.component';
+import { FormModalComponent } from './home/form-modal/form-modal.component';
 
 
 @NgModule({
@@ -38,7 +41,8 @@ import { FormDetailComponent } from './home/form-detail/form-detail.component';
     TokenComponent,
     UserComponent,
     FormComponent,
-    FormDetailComponent
+    FormDetailComponent,
+    FormModalComponent
   ],
   imports: [
     BrowserModule,
@@ -58,8 +62,11 @@ import { FormDetailComponent } from './home/form-detail/form-detail.component';
     MatTableModule,
     MatCardModule,
     MatChipsModule,
+    MatDialogModule,
+    MatExpansionModule,
     AppRoutingModule
   ],
+  entryComponents: [FormModalComponent],
   providers: [HomeDirective, HomeService],
   bootstrap: [AppComponent]
 })
