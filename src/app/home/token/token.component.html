@@ -13,3 +13,41 @@
     </form>
   </mat-card-content>
 </mat-card>
+
+<mat-card class="mat-card mat-card-border">
+    <mat-card-header>
+        <mat-card-title class="center">Form Generation Section</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="generateForm" #generateFormInstance ="ngForm" autocomplete="off"  (ngSubmit)="generateFormClickHandler()">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Enter token *" formControlName="token" name="txtToken" id="txtToken">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+              <input matInput placeholder="Enter Form Id *" formControlName="formId" name="txtFormId" id="txtFormId">
+            </mat-form-field>
+          <mat-card-actions class="mataction">
+            <button mat-raised-button color="primary" type="submit" name="btnSubmit" id="btnSubmit">Submit</button>
+          </mat-card-actions>
+        </form>
+      </mat-card-content>
+</mat-card>
+
+<mat-card class="mat-card mat-card-border">
+    <mat-card-header>
+        <mat-card-title class="center">Form Generation Section</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngIf="formElementListData && formElementListData.length > 0">
+        casdcasc
+        <div *ngFor="let element of formElementListData" >
+                <input type="text" *ngIf="element.data_type == 1"  name="testText" id="testText">
+                <input type="number" *ngIf="element.data_type == 2"  name="testNumber" id="testNumber">
+                <input type="textarea" *ngIf="element.data_type == 16"  name="testTextarea" id="testTextarea">
+                <input type="date" *ngIf="element.data_type == 3"  name="testDate" id="testDate">
+        </div>
+        </div>
+      </mat-card-content>
+</mat-card>
+
+

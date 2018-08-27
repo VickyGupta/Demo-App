@@ -21,6 +21,7 @@ export class FormDetailComponent implements OnInit {
   private formDetailData: any;
   private formElementListData: any;
   private formElementData: any;
+  public token =   localStorage.getItem('token');
 
   constructor(public formDetailRouter: Router, public formDetailActivatedRoute: ActivatedRoute, public homeDirective: HomeDirective, public dialog: MatDialog) { }
 
@@ -35,7 +36,7 @@ export class FormDetailComponent implements OnInit {
           this.formDetailData = formDetail;
         });
 
-        this.getFormElementListByFormId(this.profileId, this.formId, (formElementList) => {
+        this.getFormElementListByFormId(this.profileId, this.formId, this.token, (formElementList) => {
           this.formElementListData = formElementList;
         });
       }
@@ -67,8 +68,8 @@ export class FormDetailComponent implements OnInit {
     });
   }
 
-  getFormElementListByFormId(profileId, formId, fn: (formElementList: any) => void) {
-    this.homeDirective.getFormElementListByFormId(profileId, formId, (isSuccess, formElementList) => {
+  getFormElementListByFormId(profileId, formId, token, fn: (formElementList: any) => void) {
+    this.homeDirective.getFormElementListByFormId(profileId, formId, this.token, (isSuccess, formElementList) => {
       fn(formElementList);
     });
   }

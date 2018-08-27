@@ -63,8 +63,19 @@ export class HomeDirective {
         );
     }
 
-    getFormElementListByFormId(profileId, formId, fn: (isSuccess: boolean, token: any) => void) {
-        this.homeService.getFormElementListByFormId(profileId, formId).subscribe(
+    getFormDetail(profileId, formId, elementList, token, fn: (isSuccess: boolean, token: any) => void) {
+        this.homeService.getFormDetail(profileId, formId, elementList, token).subscribe(
+            (res) => {
+                fn(true, res);
+            },
+            (error) => {
+                fn(false, error);
+            }
+        );
+    }
+
+    getFormElementListByFormId(profileId, formId, token, fn: (isSuccess: boolean, token: any) => void) {
+        this.homeService.getFormElementListByFormId(profileId, formId, token).subscribe(
             (res) => {
                 fn(true, res);
             },
