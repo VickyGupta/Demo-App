@@ -38,6 +38,7 @@ export class HomeService {
   }
 
   public getFormElementListByFormId(profileId, formId, token) {
+    localStorage.setItem('token', token);
     this.token = token;
     this.headers.set('Authorization' , 'Bearer ' + token);
     return this.http.get('/api/profiles/' + profileId + '/pages/' + formId + '/elements?fields=data_type', this.options).pipe(map(res => res.json()));
@@ -48,6 +49,7 @@ export class HomeService {
   }
 
   public getFormDetail(profileId, formId, elementlist, token) {
+    localStorage.setItem('token', token);
     this.headers.set('Authorization' , 'Bearer ' + token);
     return this.http.get('/api/profiles/' + profileId + '/pages/' + formId + '/records?fields=' + elementlist, this.options).pipe(map(res => res.json()));
   }
