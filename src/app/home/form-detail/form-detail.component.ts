@@ -28,8 +28,6 @@ export class FormDetailComponent implements OnInit {
   ngOnInit() {
     this.formDetailActivatedRoute.params.subscribe(params => {
       if (params.hasOwnProperty('pId') && params.hasOwnProperty('fId') && params['fId'] != null && params['pId'] != null) {
-        console.log(params['pId']);
-        console.log(params['fId']);
         this.profileId = params['pId'];
         this.formId = params['fId'];
         this.getFormDetailById(this.profileId, this.formId, (formDetail) => {

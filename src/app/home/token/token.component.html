@@ -3,7 +3,7 @@
     <mat-card-title class="center">Refresh Token Section</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <form [formGroup]="refreshTokenForm" #refreshTokenFormInstance ="ngForm" autocomplete="off"  (ngSubmit)="refreshTokenClickHandler()">
+    <form [formGroup]="refreshTokenForm" #refreshTokenFormInstance="ngForm" autocomplete="off" (ngSubmit)="refreshTokenClickHandler()">
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Enter refresh token *" formControlName="token" name="txtToken" id="txtToken">
       </mat-form-field>
@@ -15,60 +15,54 @@
 </mat-card>
 
 <mat-card class="mat-card mat-card-border">
-    <mat-card-header>
-        <mat-card-title class="center">Form Generation Section</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <form [formGroup]="generateForm" #generateFormInstance ="ngForm" autocomplete="off"  (ngSubmit)="generateFormClickHandler()">
-          <mat-form-field class="col-width-50">
-            <input matInput placeholder="Enter token *" formControlName="token" name="txtToken" id="txtToken">
-          </mat-form-field>
-          <mat-form-field class="col-width-50">
-              <input matInput placeholder="Enter Form Id *" formControlName="formId" name="txtFormId" id="txtFormId">
-            </mat-form-field>
-          <mat-card-actions class="mataction">
-            <button mat-raised-button color="primary" type="submit" name="btnSubmit" id="btnSubmit">Submit</button>
-          </mat-card-actions>
-        </form>
-      </mat-card-content>
+  <mat-card-header>
+    <mat-card-title class="center">Form Generation Section</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="generateForm" #generateFormInstance="ngForm" autocomplete="off" (ngSubmit)="generateFormClickHandler()">
+      <mat-form-field class="col-width-50">
+        <input matInput placeholder="Enter token *" formControlName="token" name="txtToken" id="txtToken">
+      </mat-form-field>
+      <mat-form-field class="col-width-50">
+        <input matInput placeholder="Enter Form Id *" formControlName="formId" name="txtFormId" id="txtFormId">
+      </mat-form-field>
+      <mat-card-actions class="mataction">
+        <button mat-raised-button color="primary" type="submit" name="btnSubmit" id="btnSubmit">Submit</button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
 </mat-card>
 
-<!-- <mat-card class="mat-card mat-card-border">
-    <mat-card-header>
-        <mat-card-title class="center">Form Generation Section</mat-card-title>
-      </mat-card-header>
-      <mat-card-content> -->
-        <div *ngIf="formElementListData && formElementListData.length > 0">
-          <h1>Generation Form</h1>
-          <form autocomplete="off"  (ngSubmit)="generateFormClickHandler1()">
-            <div class="row">
-              <div style="float:left" class="col-width-50" *ngFor="let element of formElementListData; let i = index;">
-                <mat-form-field  *ngIf="element.data_type == 1">
-                  <mat-label>{{element.name}}</mat-label>
-                  <input matInput type="text" placeholder="Enter Text" name="{{element.name}}">
-                </mat-form-field>
-
-                <mat-form-field  *ngIf="element.data_type == 2">
-                    <mat-label>{{element.name}}</mat-label>
-                    <input matInput type="number" placeholder="Enter Number*"  name="{{element.name}}">
-                </mat-form-field>
-                <mat-form-field  *ngIf="element.data_type == 3">
-                    <mat-label>{{element.name}}</mat-label>
-                    <input matInput type="date" placeholder="Enter Date*"  name="{{element.name}}">
-                </mat-form-field>
-
-                <mat-form-field  *ngIf="element.data_type == 19">
-                  <mat-label>{{element.name}}</mat-label>
-                  <input matInput type="textarea" placeholder="Enter Description*"  name="{{element.name}}">
-                </mat-form-field>
-              </div>
-            </div>   
-            <!-- <mat-card-actions class="mataction">
-              <button mat-raised-button color="primary" type="submit" name="btnSubmit" id="btnSubmit">Submit</button>
-            </mat-card-actions> -->
-          </form>
-        </div>
-      <!-- </mat-card-content>
-</mat-card> -->
+<div *ngIf="formRecordList && formRecordList.length > 0">
+    <h1>Data of Below Form</h1>
+    {{formRecordList | json}}
+</div>
 
 
+<div *ngIf="formElementListData && formElementListData.length > 0">
+  <h1>Generationed Form</h1>
+  <form>
+    <div class="row">
+      <div style="float: left;" class="col-width-50" *ngFor="let element of formElementListData; let i = index;">
+        <mat-form-field *ngIf="element.data_type == 1">
+          <mat-label>{{element.name}}</mat-label>
+          <input matInput type="text" placeholder="Enter Text" name="{{element.name}}">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="element.data_type == 2">
+          <mat-label>{{element.name}}</mat-label>
+          <input matInput type="number" placeholder="Enter Number*" name="{{element.name}}">
+        </mat-form-field>
+        <mat-form-field *ngIf="element.data_type == 3">
+          <mat-label>{{element.name}}</mat-label>
+          <input matInput type="date" placeholder="Enter Date*" name="{{element.name}}">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="element.data_type == 19">
+          <mat-label>{{element.name}}</mat-label>
+          <textarea matInput type="textarea" placeholder="Enter Description*" name="{{element.name}}"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>

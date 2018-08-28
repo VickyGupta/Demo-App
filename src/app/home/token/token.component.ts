@@ -16,6 +16,7 @@ export class TokenComponent implements OnInit {
   generateForm: FormGroup;
   formElementListData: any;
   formElementList: any = [];
+  formRecordList: any = [];
   formObject: any;
 
   constructor(public homeBuilder: FormBuilder, public tokenRouter: Router, public homeDirective: HomeDirective) {
@@ -45,12 +46,10 @@ export class TokenComponent implements OnInit {
 
   refreshTokenClickHandler() {
     if (this.refreshTokenForm.valid) {
-      console.log('Successfully set refresh token to localStorage');
       localStorage.setItem('token', this.refreshTokenForm.value.token);
       // this.tokenRouter.navigate(['/home']);
-      console.log(this.refreshTokenForm.value);
     } else {
-      console.log('Failed to set refresh token to localStorage');
+      // TODO
     }
   }
 
@@ -68,8 +67,6 @@ export class TokenComponent implements OnInit {
 
   generateFormClickHandler(profileId, formId) {
     if (this.generateForm.valid) {
-      console.log(this.generateForm.value);
-      // localStorage.setItem('token', this.generateForm.value.token);
       this.getFormElementListByFormId(this.generateForm.value.profileId, this.generateForm.value.formId, this.generateForm.value.token, (formElementList) => {
         this.formElementList = [];
         this.formElementListData = formElementList;
@@ -78,9 +75,11 @@ export class TokenComponent implements OnInit {
             this.formElementList.push(element.name);
           }
         });
-        this.homeDirective.getFormDetail(this.generateForm.value.profileId, this.generateForm.value.formId, this.formElementList, this.generateForm.value.token, (isSuccess, token) => {
-          console.log('token');
-          console.log(token);
+        this.homeDirective.getFormDetail(this.generateForm.value.profileId, this.generateForm.value.formId, this.formElementList, this.generateForm.value.token, (isSuccess, formRecordList) => {
+          console.log('formRecordList');
+          console.log(formRecordList);
+          this.formRecordList = formRecordList;
+
         });
       });
     } else {
