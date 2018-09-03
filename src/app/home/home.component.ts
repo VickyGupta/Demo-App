@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HomeDirective } from './home.directive';
 import {MatTableDataSource} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
@@ -23,7 +24,7 @@ export class HomeComponent implements OnInit {
   private clientListData: any;
   private tokenObj: any;
 
-  constructor(public homeDirective: HomeDirective) { }
+  constructor(public homeDirective: HomeDirective, public homeRouter: Router) { }
 
   displayedColumns = ['select', 'id', 'name'];
   dataSource = new MatTableDataSource();
@@ -79,7 +80,15 @@ export class HomeComponent implements OnInit {
 
   getToken(fn: (token: any) => void) {
     this.homeDirective.getToken((isSuccess, token) => {
-      fn(token);
+      if (isSuccess) {
+        fn(token);
+      } else {
+        if (token.status === 401) {
+          this.homeRouter.navigate(['/token']);
+        } else {
+          // TODO
+        }
+      }
     });
   }
 

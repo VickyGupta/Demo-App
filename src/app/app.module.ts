@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,20 +17,22 @@ import { MatButtonModule,
          MatCardModule,
          MatChipsModule,
          MatDialogModule,
-         MatExpansionModule
+         MatExpansionModule,
+         MatMenuModule
       } from '@angular/material';
 
-
-import { AppRoutingModule } from './app.routes'; // Added here
+import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HomeDirective } from './home/home.directive';
 import { HomeService } from './home/home.service';
-import { TokenComponent } from './home/token/token.component';
-import { UserComponent } from './home/user/user.component';
-import { FormComponent } from './home/form/form.component';
-import { FormDetailComponent } from './home/form-detail/form-detail.component';
-import { FormModalComponent } from './home/form-modal/form-modal.component';
+import { TokenComponent } from './token/token.component';
+import { UserComponent } from './user/user.component';
+import { FormComponent } from './form/form.component';
+import { FormDetailComponent } from './form-detail/form-detail.component';
+import { FormModalComponent } from './form-modal/form-modal.component';
+import { SharedService } from './shared.service';
+
 
 
 @NgModule({
@@ -64,10 +66,11 @@ import { FormModalComponent } from './home/form-modal/form-modal.component';
     MatChipsModule,
     MatDialogModule,
     MatExpansionModule,
-    AppRoutingModule
+    MatMenuModule,
+    RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   entryComponents: [FormModalComponent],
-  providers: [HomeDirective, HomeService],
+  providers: [HomeDirective, HomeService, SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,63 @@
+<h2>Form List 
+    <span *ngIf="formListData && formListData.length > 0"> ({{formListData.length}})</span>
+</h2>
+<div class="example-container mat-elevation-z8">
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef>
+        Select
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="masterToggle(row)">
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="ID">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Form Label -->
+    <ng-container matColumnDef="Form Label">
+        <mat-header-cell *matHeaderCellDef> Form Label </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.label}} </mat-cell>
+      </ng-container>
+
+    <!-- Table Name -->
+    <ng-container matColumnDef="Table Name">
+      <mat-header-cell *matHeaderCellDef> Table Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Last Record Modified Date -->
+    <ng-container matColumnDef="Last Record Modified Date">
+        <mat-header-cell *matHeaderCellDef> Last Record Modified Date </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.modified_date | date:'medium'}} </mat-cell>
+      </ng-container>
+
+      <!-- Last Record Modified Location -->
+    <!-- <ng-container matColumnDef="Last Record Modified Location">
+        <mat-header-cell *matHeaderCellDef> Last Record Modified Location </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container> -->
+
+      <!-- Data Record Count -->
+    <!-- <ng-container matColumnDef="Data Record Count">
+        <mat-header-cell *matHeaderCellDef> Data Record Count </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container> -->
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

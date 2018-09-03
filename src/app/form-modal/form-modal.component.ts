@@ -17,6 +17,9 @@ export class FormModalComponent implements OnInit {
     this.message = 'Message Unavailable!';
   }
 
+  getKeys = Object.keys;
+  getValues = Object.values;
+
   ngOnInit() {
   }
 

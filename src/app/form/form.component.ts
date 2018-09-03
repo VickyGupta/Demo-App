@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeDirective } from '../home.directive';
+import { HomeDirective } from '../home/home.directive';
 import {MatTableDataSource} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
 import { Router } from '@angular/router';
+import { FormFields} from './formFields';
+
+
 
 @Component({
   selector: 'app-form',
@@ -15,7 +18,15 @@ export class FormComponent implements OnInit {
 
   private formListData: any;
   private profileId: any;
-  displayedColumns = ['select', 'id', 'name', 'permissions'];
+  displayedColumns = [
+      'select',
+      'ID',
+      'Form Label',
+      'Table Name',
+      'Last Record Modified Date'
+      // 'Last Record Modified Location',
+      // 'Data Record Count'
+    ];
   dataSource = new MatTableDataSource();
   selection = new SelectionModel<any>(true, []);
 
@@ -29,7 +40,7 @@ export class FormComponent implements OnInit {
   ngOnInit() {
     if (localStorage.hasOwnProperty('profileId')) {
       this.profileId = localStorage.getItem('profileId');
-      this.getFormList(this.profileId, (formList) => {
+      this.getFormList(this.profileId, FormFields, (formList) => {
           this.formListData = formList;
           console.log(this.formListData);
           this.dataSource = new MatTableDataSource(this.formListData);
@@ -37,26 +48,12 @@ export class FormComponent implements OnInit {
     }
   }
 
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle1() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-
   masterToggle(row) {
     this.formRouter.navigate(['/formDetail', this.profileId, row.id]);
   }
 
-  getFormList(profileId, fn: (formList: any) => void) {
-      this.homeDirective.getFormList(profileId, (isSuccess, formList) => {
+  getFormList(profileId, formFields, fn: (formList: any) => void) {
+      this.homeDirective.getFormList(profileId, formFields, (isSuccess, formList) => {
         fn(formList);
       });
   }

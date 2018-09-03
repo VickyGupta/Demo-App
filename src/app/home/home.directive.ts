@@ -30,8 +30,8 @@ export class HomeDirective {
         );
     }
 
-    getFormList(profileId, fn: (isSuccess: boolean, forms: any) => void) {
-        this.homeService.getFormList(profileId).subscribe(
+    getFormList(profileId, formFields, fn: (isSuccess: boolean, forms: any) => void) {
+        this.homeService.getFormList(profileId, formFields).subscribe(
             (res) => {
                 fn(true, res);
             },
@@ -44,9 +44,11 @@ export class HomeDirective {
     getToken(fn: (isSuccess: boolean, token: any) => void) {
         this.homeService.getToken().subscribe(
             (res) => {
+                console.log(res);
                 fn(true, res);
             },
             (error) => {
+                console.log(error);
                 fn(false, error);
             }
         );
@@ -74,8 +76,19 @@ export class HomeDirective {
         );
     }
 
-    getFormElementListByFormId(profileId, formId, token, fn: (isSuccess: boolean, token: any) => void) {
-        this.homeService.getFormElementListByFormId(profileId, formId, token).subscribe(
+    getFormElementListByFormId(profileId, formId, token, elementFields, fn: (isSuccess: boolean, token: any) => void) {
+        this.homeService.getFormElementListByFormId(profileId, formId, token, elementFields).subscribe(
+            (res) => {
+                fn(true, res);
+            },
+            (error) => {
+                fn(false, error);
+            }
+        );
+    }
+
+    getFormRecordList(profileId, formId, token, elementFields, fn: (isSuccess: boolean, token: any) => void) {
+        this.homeService.getFormRecordList(profileId, formId, token, elementFields).subscribe(
             (res) => {
                 fn(true, res);
             },

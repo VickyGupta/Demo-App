@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeDirective } from '../home.directive';
+import { HomeDirective } from '../home/home.directive';
 import {MatTableDataSource} from '@angular/material';
 
 @Component({

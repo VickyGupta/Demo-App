@@ -14,7 +14,24 @@
   <hr/>
 </mat-dialog-actions>
 <mat-dialog-content>
-  <br/>
+  <table>
+    <tr>
+      <th>
+        <span *ngFor="let key of getKeys(formElementDetailData)">
+            <input type="text" value="{{key}}" readonly><br/>
+        </span>
+      </th>
+      <th>
+          <span *ngFor="let value of getValues(formElementDetailData)">
+          <input type="text" value="{{value}}"><br/>
+          </span>
+      </th>
+    </tr>
+    <!-- <tr style="float:left">
+      
+    </tr> -->
+  </table>
+  <!-- <br/>
   <div><b>ID - </b>{{formElementDetailData?.id}}</div><br />
   <div><b>Name - </b>{{formElementDetailData?.name}}</div><br />
   <div><b>Global Id - </b>{{formElementDetailData?.global_id}}</div><br />
@@ -56,5 +73,5 @@
   <div><b>dynamic_label - </b>{{formElementDetailData?.dynamic_label}}</div><br />
   <div><b>weighted_score - </b>{{formElementDetailData?.weighted_score}}</div><br />
   <div><b>localizations - </b>{{formElementDetailData?.weighted_score}}</div><br />
-  <hr/>
+  <hr/> -->
 </mat-dialog-content>

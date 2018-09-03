@@ -1,2 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+/* @import '~bootstrap/dist/css/bootstrap.min.css'; */
+body {
+    margin: 0;
+    font-family: Roboto, sans-serif;
+  }
+  
+  mat-card {
+    max-width: 90%;
+    margin: 2em auto;
+    text-align: center;
+  }
+
+  .mat-card-border {
+    border:  #c2b0e2 solid 0.25px;
+  }
+  
+  mat-toolbar-row {
+    justify-content: space-between;
+  }
+  
+  .done {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: white;
+  }
+
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    min-width: 30px !important;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}

@@ -13,8 +13,31 @@
     </form>
   </mat-card-content>
 </mat-card>
+<!-- <mat-accordion class="example-headers-align">
+<mat-expansion-panel [expanded]="step === 0" hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Token
+    </mat-panel-title>
+    <mat-panel-description>
+        Refresh Token Section
+      <mat-icon>account_circle</mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
 
-<mat-card class="mat-card mat-card-border">
+  <form [formGroup]="refreshTokenForm" #refreshTokenFormInstance="ngForm" autocomplete="off" (ngSubmit)="refreshTokenClickHandler()">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Enter refresh token *" formControlName="token" name="txtToken" id="txtToken">
+    </mat-form-field>
+    <mat-action-row>
+      <button mat-button color="primary" type="submit" name="btnSubmit" id="btnSubmit">Submit</button>
+    </mat-action-row>
+  </form>
+</mat-expansion-panel>
+</mat-accordion> -->
+  
+
+<!-- <mat-card class="mat-card mat-card-border">
   <mat-card-header>
     <mat-card-title class="center">Form Generation Section</mat-card-title>
   </mat-card-header>
@@ -31,15 +54,15 @@
       </mat-card-actions>
     </form>
   </mat-card-content>
-</mat-card>
+</mat-card> -->
 
-<div *ngIf="formRecordList && formRecordList.length > 0">
-    <h1>Data of Below Form</h1>
-    {{formRecordList | json}}
-</div>
+<!-- <div *ngIf="formRecordList && formRecordList.length > 0">
+  <h1>Data of Below Form</h1>
+  {{formRecordList | json}}
+</div> -->
 
 
-<div *ngIf="formElementListData && formElementListData.length > 0">
+<!-- <div *ngIf="formElementListData && formElementListData.length > 0">
   <h1>Generationed Form</h1>
   <form>
     <div class="row">
@@ -65,4 +88,4 @@
       </div>
     </div>
   </form>
-</div>
+</div> -->
