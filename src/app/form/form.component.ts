@@ -5,8 +5,6 @@ import {SelectionModel} from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { FormFields} from './formFields';
 
-
-
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -18,6 +16,7 @@ export class FormComponent implements OnInit {
 
   private formListData: any;
   private profileId: any;
+
   displayedColumns = [
       'select',
       'ID',
@@ -26,7 +25,8 @@ export class FormComponent implements OnInit {
       'Last Record Modified Date'
       // 'Last Record Modified Location',
       // 'Data Record Count'
-    ];
+  ];
+
   dataSource = new MatTableDataSource();
   selection = new SelectionModel<any>(true, []);
 
@@ -42,7 +42,6 @@ export class FormComponent implements OnInit {
       this.profileId = localStorage.getItem('profileId');
       this.getFormList(this.profileId, FormFields, (formList) => {
           this.formListData = formList;
-          console.log(this.formListData);
           this.dataSource = new MatTableDataSource(this.formListData);
       });
     }

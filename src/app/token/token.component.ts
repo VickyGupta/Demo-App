@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeDirective } from '../home/home.directive';
-import * as _ from 'lodash';
+// import * as _ from 'lodash';
+import * as _ from 'underscore';
+
 import { FormControl, FormBuilder, FormGroup, FormGroupDirective, NgForm, FormArray, Validators } from '@angular/forms';
 import { ElementFields} from '../form-detail/elementFields';
 import { SharedService } from '../shared.service';
@@ -45,6 +47,15 @@ export class TokenComponent implements OnInit {
   }
 
   ngOnInit() {
+    // _.each([1, 2, 3], function(x) {
+    //   console.log('Regular-ES5');
+    //   console.log(x);
+    // });
+
+    // _.each([1, 2, 3], (x) => {
+    //   console.log('Regular-ES6');
+    //   console.log(x);
+    // });
   }
 
   refreshTokenClickHandler() {

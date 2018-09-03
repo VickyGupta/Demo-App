@@ -19,6 +19,7 @@ export class HomeService implements OnInit {
   private options = new RequestOptions({ headers: this.headers });
 
   ngOnInit() {
+    console.log('token');
     console.log(this.token);
   }
 
