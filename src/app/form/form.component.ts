@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeDirective } from '../home/home.directive';
-import {MatTableDataSource} from '@angular/material';
-import {SelectionModel} from '@angular/cdk/collections';
+import { MatTableDataSource } from '@angular/material';
+import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
-import { FormFields} from './formFields';
+import { FormFields } from './formFields';
 
 @Component({
   selector: 'app-form',
@@ -18,13 +18,13 @@ export class FormComponent implements OnInit {
   private profileId: any;
 
   displayedColumns = [
-      'select',
-      'ID',
-      'Form Label',
-      'Table Name',
-      'Last Record Modified Date'
-      // 'Last Record Modified Location',
-      // 'Data Record Count'
+    'select',
+    'ID',
+    'Form Label',
+    'Table Name',
+    'Last Record Modified Date'
+    // 'Last Record Modified Location',
+    // 'Data Record Count'
   ];
 
   dataSource = new MatTableDataSource();
@@ -41,8 +41,8 @@ export class FormComponent implements OnInit {
     if (localStorage.hasOwnProperty('profileId')) {
       this.profileId = localStorage.getItem('profileId');
       this.getFormList(this.profileId, FormFields, (formList) => {
-          this.formListData = formList;
-          this.dataSource = new MatTableDataSource(this.formListData);
+        this.formListData = formList;
+        this.dataSource = new MatTableDataSource(this.formListData);
       });
     }
   }
@@ -52,10 +52,16 @@ export class FormComponent implements OnInit {
   }
 
   getFormList(profileId, formFields, fn: (formList: any) => void) {
-      this.homeDirective.getFormList(profileId, formFields, (isSuccess, formList) => {
+    this.homeDirective.getFormList(profileId, formFields, (isSuccess, formList) => {
+      if (isSuccess) {
         fn(formList);
-      });
+      } else {
+        if (formList.status === 401) {
+          this.formRouter.navigate(['/token']);
+        } else {
+          // TODO
+        }
+      }
+    });
   }
-
-
 }

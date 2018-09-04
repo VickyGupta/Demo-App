@@ -1,16 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeDirective } from './home.directive';
-import {MatTableDataSource} from '@angular/material';
-import {SelectionModel} from '@angular/cdk/collections';
-
-const ELEMENT_DATA_TYPE: any[] = [
-  {data_type: 1, name: 'Text', type: 'text'},
-  {data_type: 2, name: 'Number', type: 'number'},
-  {data_type: 16, name: 'Label', type: 'label'},
-  {data_type: 19, name: 'Text Area', type: 'textarea'},
-  {data_type: 3, name: 'Date', type: 'date'}
-];
+import { MatTableDataSource } from '@angular/material';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-home',
@@ -37,32 +29,17 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getToken((token) => {
-        this.tokenObj = token;
-        if (this.tokenObj.hasOwnProperty('user')) {
-          localStorage.setItem('user', JSON.stringify(this.tokenObj));
-          localStorage.setItem('profileId', this.tokenObj.user.profile_id);
-        }
-    });
+    // this.getToken((token) => {
+    //     this.tokenObj = token;
+    //     if (this.tokenObj.hasOwnProperty('user')) {
+    //       localStorage.setItem('user', JSON.stringify(this.tokenObj));
+    //       localStorage.setItem('profileId', this.tokenObj.user.profile_id);
+    //     }
+    // });
     this.getClientList((clientList) => {
         this.clientListData = clientList;
         this.dataSource = new MatTableDataSource(this.clientListData);
     });
-  }
-
-   /** Whether the number of selected elements matches the total number of rows. */
-   isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle1() {
-    console.log(this.selection.selected);
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
   masterToggle(row) {
@@ -74,10 +51,19 @@ export class HomeComponent implements OnInit {
 
   getClientList(fn: (clientList: any) => void) {
       this.homeDirective.getClientList((isSuccess, clientList) => {
-        fn(clientList);
+        if (isSuccess) {
+          fn(clientList);
+        } else {
+          if (clientList.status === 401) {
+            this.homeRouter.navigate(['/token']);
+          } else {
+            // TODO
+          }
+        }
       });
   }
 
+  // Currently not in use
   getToken(fn: (token: any) => void) {
     this.homeDirective.getToken((isSuccess, token) => {
       if (isSuccess) {
@@ -91,6 +77,4 @@ export class HomeComponent implements OnInit {
       }
     });
   }
-
-
 }

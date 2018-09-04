@@ -32,6 +32,9 @@ import { FormComponent } from './form/form.component';
 import { FormDetailComponent } from './form-detail/form-detail.component';
 import { FormModalComponent } from './form-modal/form-modal.component';
 import { SharedService } from './shared.service';
+import { JwtService } from './service/jwt.service';
+import { FormUpdateComponent } from './form-update/form-update.component';
+
 
 
 
@@ -44,7 +47,8 @@ import { SharedService } from './shared.service';
     UserComponent,
     FormComponent,
     FormDetailComponent,
-    FormModalComponent
+    FormModalComponent,
+    FormUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +74,7 @@ import { SharedService } from './shared.service';
     RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   entryComponents: [FormModalComponent],
-  providers: [HomeDirective, HomeService, SharedService],
+  providers: [HomeDirective, HomeService, SharedService, JwtService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

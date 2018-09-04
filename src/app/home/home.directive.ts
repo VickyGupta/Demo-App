@@ -54,6 +54,19 @@ export class HomeDirective {
         );
     }
 
+    getAccessToken(encodedToken, fn: (isSuccess: boolean, token: any) => void) {
+        this.homeService.getAccessToken(encodedToken).subscribe(
+            (res) => {
+                console.log(res);
+                fn(true, res);
+            },
+            (error) => {
+                console.log(error);
+                fn(false, error);
+            }
+        );
+    }
+
     getFormDetailById(profileId, formId, fn: (isSuccess: boolean, token: any) => void) {
         this.homeService.getFormDetailById(profileId, formId).subscribe(
             (res) => {

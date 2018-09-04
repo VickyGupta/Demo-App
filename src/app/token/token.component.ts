@@ -7,7 +7,7 @@ import * as _ from 'underscore';
 import { FormControl, FormBuilder, FormGroup, FormGroupDirective, NgForm, FormArray, Validators } from '@angular/forms';
 import { ElementFields} from '../form-detail/elementFields';
 import { SharedService } from '../shared.service';
-
+import { JwtService } from '../service/jwt.service';
 
 @Component({
   selector: 'app-token',
@@ -17,48 +17,40 @@ import { SharedService } from '../shared.service';
 export class TokenComponent implements OnInit {
 
   refreshTokenForm: FormGroup;
-  step = 0;
-  // generateForm: FormGroup;
-  // formElementListData: any;
-  // formElementList: any = [];
-  // formRecordList: any = [];
-  // formObject: any;
-
-  constructor(public homeBuilder: FormBuilder, public tokenRouter: Router, public homeDirective: HomeDirective, public sharedService: SharedService) {
+  token: any;
+  constructor(public homeBuilder: FormBuilder,
+              public tokenRouter: Router,
+              public homeDirective: HomeDirective,
+              public sharedService: SharedService,
+              public jwtService: JwtService
+  ) {
 
     this.refreshTokenForm = homeBuilder.group({
       token: ['', [
         Validators.required
       ]]
     });
-
-    // this.generateForm = homeBuilder.group({
-    //   token: ['', [
-    //     Validators.required
-    //   ]],
-    //   profileId: ['441459', [
-    //     Validators.required
-    //   ]],
-    //   formId: ['', [
-    //     Validators.required
-    //   ]]
-    // });
-
   }
 
   ngOnInit() {
-    // _.each([1, 2, 3], function(x) {
-    //   console.log('Regular-ES5');
-    //   console.log(x);
-    // });
-
-    // _.each([1, 2, 3], (x) => {
-    //   console.log('Regular-ES6');
-    //   console.log(x);
-    // });
+    this.jwtService.generateEncodedToken((encodedToken) => {
+      console.log('encodedToken');
+      console.log(encodedToken);
+      this.homeDirective.getAccessToken(encodedToken, (isSuccess, data) => {
+        console.log('data');
+        console.log(data);
+        if (isSuccess) {
+          localStorage.setItem('token', data.access_token);
+          localStorage.setItem('tokenObj', JSON.stringify(data));
+          this.tokenRouter.navigate(['/home']);
+        }
+      });
+    });
   }
 
+  // Currently not in use
   refreshTokenClickHandler() {
+    this.ngOnInit();
     console.log(this.refreshTokenForm.valid);
     if (this.refreshTokenForm.valid) {
       this.sharedService.saveToken(this.refreshTokenForm.value.token);
@@ -68,39 +60,4 @@ export class TokenComponent implements OnInit {
       // TODO
     }
   }
-
-  // getFormElementListByFormId(profileId, formId, token, elementFields, fn: (formElementList: any) => void) {
-  //   this.homeDirective.getFormElementListByFormId(profileId, formId, token, elementFields, (isSuccess, formElementList) => {
-  //     fn(formElementList);
-  //   });
-  // }
-
-  // getFormDetail(profileId, formId, token, elementFields, fn: (formElementList: any) => void) {
-  //   this.homeDirective.getFormElementListByFormId(profileId, formId, token, elementFields, (isSuccess, formElementList) => {
-  //     fn(formElementList);
-  //   });
-  // }
-
-  // generateFormClickHandler(profileId, formId) {
-  //   if (this.generateForm.valid) {
-  //     this.getFormElementListByFormId(this.generateForm.value.profileId, this.generateForm.value.formId, this.generateForm.value.token, ElementFields, (formElementList) => {
-  //       this.formElementList = [];
-  //       this.formElementListData = formElementList;
-  //       this.formElementListData.forEach(element => {
-  //         if (element.name !== 'test_label') {
-  //           this.formElementList.push(element.name);
-  //         }
-  //       });
-  //       this.homeDirective.getFormDetail(this.generateForm.value.profileId, this.generateForm.value.formId, this.formElementList, this.generateForm.value.token, (isSuccess, formRecordList) => {
-  //         console.log('formRecordList');
-  //         console.log(formRecordList);
-  //         this.formRecordList = formRecordList;
-
-  //       });
-  //     });
-  //   } else {
-  //     console.log('Failed to set refresh token to localStorage');
-  //   }
-  // }
-
 }

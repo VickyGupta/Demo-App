@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "https://logs.thinkpowersolutions.com/exzact/api/v60",
+    "target": "https://logs.thinkpowersolutions.com/exzact/api",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",

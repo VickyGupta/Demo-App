@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material';
 import { FormModalComponent } from '../form-modal/form-modal.component';
+import { FormUpdateComponent } from '../form-update/form-update.component';
 import { ElementFields } from './elementFields';
 import { TestFields } from './elementFields';
 
@@ -25,43 +26,44 @@ export class FormDetailComponent implements OnInit {
   private formElementData: any;
   public token =   localStorage.getItem('token');
   displayedColumns = [];
-  displayedColumns1 = [];
-  displayedColumns2 = [];
+  displayedColumnsHeader = [];
+  displayedColumnsData = [];
   dataSource = new MatTableDataSource();
-  test = [];
-  test1 = [];
+  public formUpdateComponentObj: FormUpdateComponent;
 
-  constructor(public formDetailRouter: Router, public formDetailActivatedRoute: ActivatedRoute, public homeDirective: HomeDirective, public dialog: MatDialog) { }
-
-  getKeys = Object.keys;
-  getValues = Object.values;
+  constructor(public formDetailRouter: Router,
+              public formDetailActivatedRoute: ActivatedRoute,
+              public homeDirective: HomeDirective,
+              public dialog: MatDialog) {
+              this.formUpdateComponentObj = new FormUpdateComponent();
+  }
 
   ngOnInit() {
-    this.test = ElementFields;
     this.formDetailActivatedRoute.params.subscribe(params => {
       if (params.hasOwnProperty('pId') && params.hasOwnProperty('fId') && params['fId'] != null && params['pId'] != null) {
         this.profileId = params['pId'];
         this.formId = params['fId'];
+
         // this.getFormDetailById(this.profileId, this.formId, (formDetail) => {
         //   this.formDetailData = formDetail;
         // });
+
         this.getFormElementListByFormId(this.profileId, this.formId, this.token, ElementFields, (formElementList) => {
           this.formElementListData = formElementList;
           this.displayedColumns = [];
-          this.displayedColumns1 = ['select'];
+          this.displayedColumnsHeader = ['select'];
           this.formElementListData.forEach(element => {
             console.log(typeof element.name);
             if (element.data_type !== 17) {
-              console.log('in');
-              this.displayedColumns1.push(element.name);
+              this.displayedColumnsHeader.push(element.name);
               this.displayedColumns.push(element.name);
             } else {
-              console.log('out');
+              // TODO
             }
           });
           // this.displayedColumns = TestFields;
           this.getFormRecordList(this.profileId, this.formId, this.token, this.displayedColumns, (formRecordList) => {
-            this.displayedColumns2 = this.displayedColumns2.concat(formRecordList);
+            // this.displayedColumnsData = this.displayedColumnsData.concat(formRecordList);
             this.dataSource = new MatTableDataSource(formRecordList);
           });
         });
@@ -69,36 +71,17 @@ export class FormDetailComponent implements OnInit {
     });
   }
 
-  masterToggle(row) {
-    console.log(row);
-    // this.formRouter.navigate(['/formDetail', this.profileId, row.id]);
-  }
-
   getFormElementByFormIdAndElementIdClickHandler(row) {
-    console.log(row);
-    this.openDialog(row);
+    localStorage.setItem('formObj', JSON.stringify(row));
+    this.formUpdateComponentObj.getData(row);
+    this.formDetailRouter.navigate(['/formUpdate']);
+
+    // this.openDialog(row); // to show form data in modal
+
     // this.getFormElementByFormIdAndElementId(this.profileId, this.formId, element.id, (formElementDetail) => {
     //   this.formElementData = formElementDetail;
     //   this.openDialog(element, formElementDetail);
     // });
-  }
-
-  openDialog(formElementDetail) {
-    const dialogRef = this.dialog.open(FormModalComponent, {
-      // height: '350px'
-    });
-    dialogRef.componentInstance.formElementDetailData = formElementDetail;
-    // dialogRef.componentInstance.message = element.id;
-    dialogRef.componentInstance.title = 'test'; // element.name;
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-
-  getFormDetailById(profileId, formId, fn: (formDetail: any) => void) {
-    this.homeDirective.getFormDetailById(profileId, formId, (isSuccess, formDetail) => {
-      fn(formDetail);
-    });
   }
 
   getFormElementListByFormId(profileId, formId, token, elementFields, fn: (formElementList: any) => void) {
@@ -113,6 +96,27 @@ export class FormDetailComponent implements OnInit {
     });
   }
 
+  // currently not in use
+  openDialog(formElementDetail) {
+    const dialogRef = this.dialog.open(FormModalComponent, {
+      // height: '350px'
+    });
+    dialogRef.componentInstance.formElementDetailData = formElementDetail;
+    // dialogRef.componentInstance.message = element.id;
+    dialogRef.componentInstance.title = 'test'; // element.name;
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  // currently not in use
+  getFormDetailById(profileId, formId, fn: (formDetail: any) => void) {
+    this.homeDirective.getFormDetailById(profileId, formId, (isSuccess, formDetail) => {
+      fn(formDetail);
+    });
+  }
+
+  // currently not in use
   getFormElementByFormIdAndElementId(profileId, formId, elementId, fn: (formElementDetail: any) => void) {
     this.homeDirective.getFormElementByFormIdAndElementId(profileId, formId, elementId, (isSuccess, formElementDetail) => {
       fn(formElementDetail);

@@ -1,139 +1,17 @@
-<div *ngIf="formDetailData">
-    <h2>Form Detail of {{formDetailData?.name}}</h2>
-    <!-- <mat-card> -->
-      <div><b>ID - </b>{{formDetailData?.id}}</div><br />
-      <div><b>Label - </b>{{formDetailData?.label}}</div><br />
-      <div><b>Label Icons - </b>{{formDetailData?.label_icons}}</div><br />
-      <div><b>Localizations - </b>{{formDetailData?.localizations}}</div><br />
-      <div><b>Global Id - </b>{{formDetailData?.global_id}}</div><br />
-      <div><b>Created By - </b>{{formDetailData?.created_by}}</div><br />
-      <div><b>Created Date </b>{{formDetailData?.created_date}}</div><br />
-      <div><b>Description - </b>{{formDetailData?.description}}</div><br />
-      <div><b>Icon - </b>{{formDetailData?.icon}}</div><br />
-      <div><b>Is Disabled - </b>{{formDetailData?.is_disabled}}</div><br />
-      <div><b>Modified Date - </b>{{formDetailData?.modified_date}}</div><br />
-      <div><b>Modified By - </b>{{formDetailData?.modified_by}}</div><br />
-      <div><b>Name - </b>{{formDetailData?.name}}</div><br />
-      <div><b>page Javascript - </b>{{formDetailData?.page_javascript}}</div><br />
-      <div><b>Permissions[Collect Modify View] - </b>{{formDetailData?.permissions?.collect}} {{formDetailData?.permissions?.modify}} {{formDetailData?.permissions?.value}}</div><br />
-      <div><b>Reference Id 1 - </b>{{formDetailData?.reference_id_1}}</div><br />
-      <div><b>Reference Id 2 - </b>{{formDetailData?.reference_id_2}}</div><br />
-      <div><b>Reference Id 3 - </b>{{formDetailData?.reference_id_3}}</div><br />
-      <div><b>Reference Id 4 - </b>{{formDetailData?.reference_id_4}}</div><br />
-      <div><b>Reference Id 5 - </b>{{formDetailData?.reference_id_5}}</div><br />
-      <div><b>Sort Order - </b>{{formDetailData?.sort_order}}</div><br />
-      <div><b>Version - </b>{{formDetailData?.version}}</div>
-      <hr/>
-      <h2>Form Element List  <span *ngIf="formDetailData.name"> of {{formDetailData?.name}}</span> </h2>
-      <mat-chip-list class="mat-chip-list-stacked" *ngIf="formElementListData && formElementListData.length > 0">
-        <mat-chip color="primary" (click)="getFormElementByFormIdAndElementIdClickHandler
-          (ele)" *ngFor="let ele of formElementListData" style="width: 25%;float:left">
-            {{ele.id}} - {{ele.name}}
-        </mat-chip>
-      </mat-chip-list>
-    <!-- </mat-card> -->
-</div>
-
 <mat-table *ngIf="true" #table [dataSource]="dataSource">
-
-  <!-- <ng-container matColumnDef="select">
-    <mat-header-cell *matHeaderCellDef>
-      Select
-    </mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <mat-checkbox (click)="masterToggle(row)">
-      </mat-checkbox>
-    </mat-cell>
-  </ng-container>   -->
-  <span *ngFor="let disCol of displayedColumns1; let colIndex = index">
+  <span *ngFor="let disCol of displayedColumnsHeader; let colIndex = index">
   <ng-container matColumnDef="{{disCol}}">
         <mat-header-cell *matHeaderCellDef>{{disCol.toUpperCase()}}</mat-header-cell>
         <span *ngIf="disCol !== 'select'">
         <mat-cell *matCellDef="let element "> {{element[disCol]}}
         </mat-cell></span>
-        <span *ngIf="disCol === 'select'">
+  <span *ngIf="disCol === 'select'">
         <mat-cell *matCellDef="let row">
             <mat-checkbox (change)="getFormElementByFormIdAndElementIdClickHandler(row)">
             </mat-checkbox>
           </mat-cell></span>
-    </ng-container>
+  </ng-container>
   </span>
-    <!-- <ng-container matColumnDef="select">
-      <mat-header-cell *matHeaderCellDef>
-        Select
-      </mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <mat-checkbox (click)="masterToggle(row)">
-        </mat-checkbox>
-      </mat-cell>
-    </ng-container> -->
-
-    <!-- ID Column -->
-    <!-- <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
-    </ng-container> -->
-
-    <!-- Form Label -->
-    <!-- <ng-container matColumnDef="label">
-        <mat-header-cell *matHeaderCellDef> Label </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.label}} </mat-cell>
-      </ng-container> -->
-
-    <!-- Table Name -->
-    <!-- <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> Table Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-    </ng-container> -->
-
-    <!-- Last Record Modified Date -->
-    <!-- <ng-container matColumnDef="modified_date">
-        <mat-header-cell *matHeaderCellDef> Last Record Modified Date </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.modified_date | date:'medium'}} </mat-cell>
-      </ng-container> -->
-
-      <!-- Last Record Modified Location -->
-    <!-- <ng-container matColumnDef="dynamic_value"> 
-        <mat-header-cell *matHeaderCellDef> Last Record Modified Location </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.dynamic_value}} </mat-cell>
-      </ng-container> -->
-
-      <!-- Data Record Count -->
-    <!-- <ng-container matColumnDef="Data Record Count">
-        <mat-header-cell *matHeaderCellDef> Data Record Count </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-      </ng-container> -->
-
-
-    <mat-header-row style="position: sticky" *matHeaderRowDef="displayedColumns1"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns1;"></mat-row>
-  </mat-table>
-
-  <!-- <table>
-    <tr *ngFor="let ele of formElementListData; let i=index;">
-      <th *ngIf="i == 0">
-        <span *ngFor="let key of getKeys(formElementListData[i])">{{key}}</span>
-      </th>
-      <td *ngIf="i != 0">
-          <span *ngFor="let value of getValues(formElementListData[i])">{{value}}</span>
-      </td>
-    </tr>
-
-  </table> -->
-
-  <!-- <table>
-    <tr >
-      <th *ngFor="let ele of displayedColumns1; let i=index;">
-        {{ele}}
-      </th>
-    </tr>
-    <tr *ngFor="let e of displayedColumns2; let i=index;">
-      <td>
-        {{e[displayedColumns1[i]]}}
-      </td>
-    </tr>
-
-  </table> -->
-
-
-
+  <mat-header-row style="position: sticky" *matHeaderRowDef="displayedColumnsHeader"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumnsHeader;"></mat-row>
+</mat-table>

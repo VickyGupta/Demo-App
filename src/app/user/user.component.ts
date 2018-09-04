@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HomeDirective } from '../home/home.directive';
-import {MatTableDataSource} from '@angular/material';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-user',
@@ -9,7 +10,7 @@ import {MatTableDataSource} from '@angular/material';
 })
 export class UserComponent implements OnInit {
 
-  constructor(public homeDirective: HomeDirective) { }
+  constructor(public homeDirective: HomeDirective, public userRouter: Router) { }
 
   private userListData: any;
   private user: any;
@@ -30,16 +31,24 @@ export class UserComponent implements OnInit {
       // this.user = JSON.parse(localStorage.getItem('user'));
       this.profileId = localStorage.getItem('profileId');
       this.getUserList(this.profileId, (userList) => {
-          this.userListData = userList;
-          console.log(this.userListData);
-          this.dataSource = new MatTableDataSource(this.userListData);
+        this.userListData = userList;
+        console.log(this.userListData);
+        this.dataSource = new MatTableDataSource(this.userListData);
       });
     }
   }
 
   getUserList(profileId, fn: (userList: any) => void) {
-      this.homeDirective.getUserList(profileId, (isSuccess, userList) => {
+    this.homeDirective.getUserList(profileId, (isSuccess, userList) => {
+      if (isSuccess) {
         fn(userList);
-      });
+      } else {
+        if (userList.status === 401) {
+          this.userRouter.navigate(['/token']);
+        } else {
+          // TODO
+        }
+      }
+    });
   }
 }
