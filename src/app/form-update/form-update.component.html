@@ -1,0 +1,13 @@
+<h1>
+  Form update
+</h1>
+<form class="example-form">
+  <mat-form-field class="example-full-width" *ngFor="let key of getKeys(formElementDetailData)">
+    <div *ngFor="let k of key;let i=index">
+      <label *ngIf="i == 0">{{k}}</label>
+      <input matInput type="text" *ngIf="i == 1" value="{{k}}">
+    </div>
+  </mat-form-field>
+</form>
+
+ 
