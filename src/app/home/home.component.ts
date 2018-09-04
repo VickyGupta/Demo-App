@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
     //       localStorage.setItem('profileId', this.tokenObj.user.profile_id);
     //     }
     // });
+    localStorage.setItem('profileId', '441459');
     this.getClientList((clientList) => {
         this.clientListData = clientList;
         this.dataSource = new MatTableDataSource(this.clientListData);
