@@ -52,16 +52,19 @@ export class FormDetailComponent implements OnInit {
           this.formElementListData = formElementList;
           this.displayedColumns = [];
           this.displayedColumnsHeader = ['select'];
-          this.formElementListData.forEach(element => {
+          this.formElementListData.forEach((element, i) => {
             console.log(typeof element.name);
             if (element.data_type !== 17) {
-              this.displayedColumnsHeader.push(element.name);
               this.displayedColumns.push(element.name);
+              if (i < 5) {
+                this.displayedColumnsHeader.push(element.name);
+              }
             } else {
               // TODO
             }
           });
           // this.displayedColumns = TestFields;
+          localStorage.setItem('formElementObj', JSON.stringify(this.displayedColumns));
           this.getFormRecordList(this.profileId, this.formId, this.token, this.displayedColumns, (formRecordList) => {
             // this.displayedColumnsData = this.displayedColumnsData.concat(formRecordList);
             this.dataSource = new MatTableDataSource(formRecordList);
@@ -73,7 +76,7 @@ export class FormDetailComponent implements OnInit {
 
   getFormElementByFormIdAndElementIdClickHandler(row) {
     localStorage.setItem('formObj', JSON.stringify(row));
-    this.formUpdateComponentObj.getData(row);
+    // this.formUpdateComponentObj.getData(row);
     this.formDetailRouter.navigate(['/formUpdate']);
 
     // this.openDialog(row); // to show form data in modal
