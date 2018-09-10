@@ -88,4 +88,10 @@ export class HomeService {
 
   // https://servername.iformbuilder.com/exzact/api/v60/profiles/profile_id/pages/page_id
 
+  public updateFormData(profileId, formId, recordId, formObj) {
+    this.token = localStorage.getItem('token');
+    this.headers.set('Authorization' , 'Bearer ' + this.token);
+    return this.http.put('/api/v60/profiles/' + profileId + '/pages/' + formId + '/records/' + recordId, formObj, this.options).pipe(map(res => res.json()));
+  }
+
 }

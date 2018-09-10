@@ -122,4 +122,15 @@ export class HomeDirective {
         );
     }
 
+    updateFormData(profileId, formId, recordId, formObj, fn: (isSuccess: boolean, token: any) => void) {
+        this.homeService.updateFormData(profileId, formId, recordId, formObj).subscribe(
+            (res) => {
+                fn(true, res);
+            },
+            (error) => {
+                fn(false, error);
+            }
+        );
+    }
+
 }

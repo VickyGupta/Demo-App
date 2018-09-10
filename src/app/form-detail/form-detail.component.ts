@@ -24,7 +24,7 @@ export class FormDetailComponent implements OnInit {
   private formDetailData: any;
   private formElementListData: any;
   private formElementData: any;
-  public token =   localStorage.getItem('token');
+  public token = localStorage.getItem('token');
   displayedColumns = [];
   displayedColumnsHeader = [];
   displayedColumnsData = [];
@@ -32,10 +32,10 @@ export class FormDetailComponent implements OnInit {
   public formUpdateComponentObj: FormUpdateComponent;
 
   constructor(public formDetailRouter: Router,
-              public formDetailActivatedRoute: ActivatedRoute,
-              public homeDirective: HomeDirective,
-              public dialog: MatDialog) {
-              this.formUpdateComponentObj = new FormUpdateComponent();
+    public formDetailActivatedRoute: ActivatedRoute,
+    public homeDirective: HomeDirective,
+    public dialog: MatDialog) {
+    // this.formUpdateComponentObj = new FormUpdateComponent();
   }
 
   ngOnInit() {
@@ -77,6 +77,8 @@ export class FormDetailComponent implements OnInit {
   getFormElementByFormIdAndElementIdClickHandler(row) {
     localStorage.setItem('formObj', JSON.stringify(row));
     // this.formUpdateComponentObj.getData(row);
+    localStorage.setItem('pId', this.profileId);
+    localStorage.setItem('fId', this.formId);
     this.formDetailRouter.navigate(['/formUpdate']);
 
     // this.openDialog(row); // to show form data in modal
